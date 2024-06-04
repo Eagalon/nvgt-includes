@@ -1,53 +1,51 @@
-#include"sound_pool.ngt"
-#include"../rotation/rotation.ngt"
+#include"sound_pool.nvgt"
+#include"form.nvgt"
 sound_pool p;
 double x=5,y=5,z=0;
 double face=0;
 vector camera;
 void main()
 {
+sound_global_hrtf=true;
 show_window("test");
 wait(1000);
-p.set_global_fx("reverb");
-p.set_reverb_parameters(0.5,0.5,0.5,0.5,0);
-p.set_delay_parameters(100,100,100);
-speak("press the left, right, up, down, page up/down to navigate. and c to check coordinates.");
+speak("press the left, right, up, down, page up/down to navigate. and c to check coordinates, escape to break.");
 camera.x=x;camera.y=y;camera.z=z; //initialize the vector.
 while(true)
 {
-delay(5);
-update_window();
+wait(5);
 p.update_listener_3d(x,y,z,calculate_theta(face));
-if(key_repeat(SDLK_LEFT) && camera.x>0)
+if(key_repeating(KEY_LEFT) && camera.x>0)
 {
 camera.x--;
 p.play_3d("snd/step"+random(1,5)+".ogg",x,y,z,camera.x,camera.y,camera.z,face,false);
 }
-else if(key_repeat(SDLK_RIGHT))
+else if(key_repeating(KEY_RIGHT))
 {
 camera.x++;
 p.play_3d("snd/step"+random(1,5)+".ogg",x,y,z,camera.x,camera.y,camera.z,face,false);
 }
-else if(key_repeat(SDLK_DOWN) && camera.y>0)
+else if(key_repeating(KEY_DOWN) && camera.y>0)
 {
 camera.y--;
 p.play_3d("snd/step"+random(1,5)+".ogg",x,y,z,camera.x,camera.y,camera.z,face,false);
 }
-else if(key_repeat(SDLK_UP))
+else if(key_repeating(KEY_UP))
 {
 camera.y++;
 p.play_3d("snd/step"+random(1,5)+".ogg",x,y,z,camera.x,camera.y,camera.z,face,false);
 }
-else if(key_repeat(SDLK_PAGEUP))
+else if(key_repeating(KEY_PAGEUP))
 {
 camera.z++;
 p.play_3d("snd/step"+random(1,5)+".ogg",x,y,z,camera.x,camera.y,camera.z,face,false);
 }
-else if(key_repeat(SDLK_PAGEDOWN) && camera.z>0)
+else if(key_repeating(KEY_PAGEDOWN) && camera.z>0)
 {
 camera.z--;
 p.play_3d("snd/step"+random(1,5)+".ogg",x,y,z,camera.x,camera.y,camera.z,face,false);
 }
-if(key_pressed(SDLK_c)) speak(camera.x+", "+camera.y+", "+camera.z+". Your current location's "+x+", "+y+", "+z+", which is "+get_3d_distance(x,y,z,camera.x,camera.y,camera.z)+" feet away.");
+if(key_pressed(KEY_C)) speak(camera.x+", "+camera.y+", "+camera.z+". Your current location's "+x+", "+y+", "+z+", which is "+get_3d_distance(x,y,z,camera.x,camera.y,camera.z)+" feet away.");
+if(key_pressed(KEY_ESCAPE)) exit();
 }
 }

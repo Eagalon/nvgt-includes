@@ -1,4 +1,4 @@
-#include"text_input.ngt"
+#include"text_input.nvgt"
 text_input t;
 void main()
 {

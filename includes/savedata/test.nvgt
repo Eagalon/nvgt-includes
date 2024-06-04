@@ -1,11 +1,13 @@
-#include"savedata.ngt"
-savedata sd("config.dat","",savedata_def);
+#include"savedata.nvgt"
+#include"form.nvgt"
+savedata sd("config.dat","testkey",savedata_def);
 double s=-1;
 timer f;
+#include"instance.nvgt"
 instance j("savedata");
 void main()
 {
-if(j.is_running())
+if(j.is_already_running)
 {
 alert("error","active");
 exit();
@@ -18,9 +20,8 @@ wait(2000);
 speak("press escape to exit");
 while(true)
 {
-delay(5);
-update_window();
-if(key_pressed(SDLK_ESCAPE))
+wait(5);
+if(key_pressed(KEY_ESCAPE))
 {
 savesd();
 alert("ok","saved");
@@ -37,6 +38,6 @@ if(sd.exists("time")) s=sd.readn("time");
 void savesd()
 {
 sd.clear();
-sd.add("time",f.elapsed_seconds);
+sd.add("time",f.elapsed);
 sd.save();
 }
