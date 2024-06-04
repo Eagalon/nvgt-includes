@@ -1,0 +1,30 @@
+/*
+custom_menu.
+author : harry min khant.
+email : harrymk64@gmail.com
+this is the test script for the custom_menu object. this script is always being updated as new features are available to be tested for audio type.
+*/
+//import the custom_menu object.
+#include"../custom_menu.nvgt"
+//global custom_menu object.
+custom_menu c;
+void main()
+{
+show_window("menu");
+c.add_audio("sounds/sniper.ogg","sniper");
+c.add_audio("sounds/rifle.ogg","rifle");
+c.create("sounds/title.ogg", tts:false);
+while(c.running)
+{
+wait(5);
+c.monitor();
+string r=c.get_click();
+if(r!="")
+{
+c.reset(true);
+alert("ok","You clicked "+r);
+break;
+}
+}
+exit();
+}//End

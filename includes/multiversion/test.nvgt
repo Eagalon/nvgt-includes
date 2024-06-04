@@ -1,0 +1,16 @@
+#include"multiversion.nvgt"
+void main()
+{
+string first=input_box("First","First version");
+if(first=="") exit();
+string second=input_box("Second","Second version");
+if(second=="") exit();
+string mess="first version: "+first+". second version: "+second+".";
+multiversion f(first);
+multiversion s(second);
+if(f<s) mess+=" the first version is less than the second version";
+else if(f>s) mess+=" the first version is more than the second version";
+else mess+="no version is less or more, it's the same!";
+alert("result",mess);
+exit();
+}
