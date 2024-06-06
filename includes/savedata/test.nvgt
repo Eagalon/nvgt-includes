@@ -1,10 +1,11 @@
 #include"savedata.nvgt"
 #include"form.nvgt"
-savedata sd("config.dat","testkey",savedata_def);
+savedata sd("config.dat","testkey");
 double s=-1;
 timer f;
 #include"instance.nvgt"
 instance j("savedata");
+string name;
 void main()
 {
 if(j.is_already_running)
@@ -13,11 +14,16 @@ alert("error","active");
 exit();
 }
 s=-1;
-show_window("test data");
 loadsd();
+if(name=="")
+{
+name=input_box("Name","Name, so we will have string value to test");
+if(name=="") name="user";
+}
+show_window("test data");
 if(s>-1) alert("previously","the timer is "+s);
 wait(2000);
-speak("press escape to exit");
+speak("Hello "+name+", you can press escape to exit");
 while(true)
 {
 wait(5);
@@ -33,11 +39,13 @@ exit();
 void loadsd()
 {
 sd.load();
-if(sd.exists("time")) s=sd.readn("time");
+if(sd.exists("time")) s=sd.read("time");
+if(sd.exists("username")) name=sd.read("username");
 }
 void savesd()
 {
 sd.clear();
 sd.add("time",f.elapsed);
+sd.add("username",name);
 sd.save();
 }

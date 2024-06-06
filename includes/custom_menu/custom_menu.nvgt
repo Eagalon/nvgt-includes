@@ -80,7 +80,7 @@ if(this.menu_parent.soundaudio.playing)
 {
 this.menu_parent.soundaudio.close();
 }
-bool successsoundplay=this.menu_parent.soundaudio.stream(this.name, @this.menu_parent.packfile);
+bool successsoundplay=this.menu_parent.soundaudio.stream(this.name);
 if(!successsoundplay)
 {
 this.menu_parent.reset(true);
@@ -180,7 +180,6 @@ Declare the class, which will store variables, functions, and methods.
 
 Everything is handled by custom error rather than the default error of which the NVGT provides.
 */
-pack@ cm_default_pack=null;
 class custom_menu
 {
 bool wrap=false, sidescrolling=false;
@@ -208,7 +207,6 @@ private sound musical;
 sound@ soundaudio;
 double musicvol=0, musicpitch=100;
 private bool say_dialog=true, title_tts=true;
-pack@ packfile;
 custom_menu()
 {
 this.clicked = "";
@@ -240,7 +238,6 @@ this.musicpitch=100;
 this.say_dialog=true;
 this.title_tts=true;
 @this.soundaudio=null;
-@this.packfile=cm_default_pack;
 return;
 }
 }
@@ -281,7 +278,7 @@ if(this.soundaudio.playing)
 {
 this.soundaudio.close();
 }
-bool successsoundplay=this.soundaudio.stream(this.title, @this.packfile);
+bool successsoundplay=this.soundaudio.stream(this.title);
 if(!successsoundplay)
 {
 this.reset(true);
@@ -293,7 +290,7 @@ return;
 void set_music(string path) property
 {
 if(this.musical.active) this.musical.close();
-this.musical.load(path, @this.packfile);
+this.musical.load(path);
 this.musical.volume=this.musicvol;
 this.musical.pitch=this.musicpitch;
 this.play_music();
@@ -543,7 +540,7 @@ return this.items[f].sd_index;
 }
 void play_clicksound()
 {
-if(this.clicksound!="" && !this.sndclick.active) this.sndclick.load(this.clicksound, @this.packfile);
+if(this.clicksound!="" && !this.sndclick.active) this.sndclick.load(this.clicksound);
 if(!this.sndclick.active) return;
 this.sndclick.stop();
 this.sndclick.set_pan(0);
@@ -552,7 +549,7 @@ this.sndclick.play();
 }
 void play_movesound()
 {
-if(this.movesound!="" && !this.sndmove.active) this.sndmove.load(this.movesound, @this.packfile);
+if(this.movesound!="" && !this.sndmove.active) this.sndmove.load(this.movesound);
 if(!this.sndmove.active) return;
 this.sndmove.stop();
 this.sndmove.set_pan(0);
@@ -561,7 +558,7 @@ this.sndmove.play();
 }
 void play_edgesound()
 {
-if(this.edgesound!="" && !this.sndedge.active) this.sndedge.load(this.edgesound, @this.packfile);
+if(this.edgesound!="" && !this.sndedge.active) this.sndedge.load(this.edgesound);
 if(!this.sndedge.active) return;
 this.sndedge.stop();
 this.sndedge.set_pan(0);
@@ -570,7 +567,7 @@ this.sndedge.play();
 }
 void play_wrapsound()
 {
-if(this.wrapsound!="" && !this.sndwrap.active) this.sndwrap.load(this.wrapsound, @this.packfile);
+if(this.wrapsound!="" && !this.sndwrap.active) this.sndwrap.load(this.wrapsound);
 if(!this.sndwrap.active) return;
 this.sndwrap.stop();
 this.sndwrap.set_pan(0);
@@ -579,7 +576,7 @@ this.sndwrap.play();
 }
 void play_opensound()
 {
-if(this.opensound!="" && !this.sndopen.active) this.sndopen.load(this.opensound, @this.packfile);
+if(this.opensound!="" && !this.sndopen.active) this.sndopen.load(this.opensound);
 this.sndopen.stop();
 this.sndopen.play();
 }

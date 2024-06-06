@@ -1,8 +1,0 @@
-#include"hip.nvgt"
-void main()
-{
-int[] a={1,2,6,1};
-string[] b={"hello","shit"};
-alert("ok",lister().convert(a));
-alert("ok",lister().convert(b));
-}

@@ -256,10 +256,24 @@ catch
 return round(0,round_to);
 }
 }
+string get_a_or_an(string name)
+{
+string final;
+if(stringleft(name,1)=="a" or stringleft(name,1)=="e" or stringleft(name,1)=="i" or stringleft(name,1)=="o" or stringleft(name,1)=="u")
+{
+final="an";
+}
+else
+{
+final="a";
+}
+return final;
+}
+
 string get_item_text(string text,string split_with="[[]]")
 {
 string final;
-string[] ma=text.split(split_with);
+string[] ma=text.split(split_with,true);
 if(ma.length()>1)
 {
 final=ma[1];
@@ -270,7 +284,7 @@ return final;
 string get_item_name(string text,string split_with="[[]]")
 {
 string final;
-string[] ma=text.split(split_with);
+string[] ma=text.split(split_with,true);
 final=ma[0];
 return final;
 }
@@ -292,18 +306,19 @@ bool file_put_contents(string filename, string contents, uint8 filemode=FILE_WRI
 {
 bool ret;
 file tempfile;
-if(filemode==FILE_WRITE) ret=tempfile.open(filename,"w");
-else if(filemode==FILE_APPEND) ret=tempfile.open(filename,"a");
+if(filemode==FILE_WRITE) ret=tempfile.open(filename,"wb");
+else if(filemode==FILE_APPEND) ret=tempfile.open(filename,"ab");
 else return false;
 if(!ret) return false;
 double ret2=tempfile.write(contents);
 tempfile.close();
+ret=(ret2==contents.length());
 return ret;
 }
 string file_get_contents(string filename)
 {
 file tempfile;
-tempfile.open(filename,"r");
+tempfile.open(filename,"rb");
 string r=tempfile.read();
 tempfile.close();
 return r;
@@ -503,7 +518,7 @@ if(seconds>0)
 string s=seconds>1 ? "seconds" : "second";
 ret+=seconds+" "+s;
 }
-string[] ret2=ret.split(", ");
+string[] ret2=ret.split(", ",true);
 if(ret2.length()==1) return ret2[0];
 if(ret2.length()>1)
 {
@@ -563,7 +578,7 @@ string var_replace(string text, string[] replacers={}, string opening="%", strin
 if(replacers.length()<1) return text;
 for(uint b=0;b<replacers.length();b++)
 {
-if(text.find(opening+""+(b+1)+""+closing)>-1) text=text.replace(opening+""+(b+1)+""+closing,replacers[b]);
+if(stringcontains(text, opening+""+(b+1)+""+closing,1)>-1) text=text.replace(opening+""+(b+1)+""+closing,replacers[b],true);
 }
 return text;
 }
@@ -573,7 +588,7 @@ if(fir.length()<1) return text;
 if(fir.length()!=sec.length()) return text;
 for(uint b=0;b<fir.length();b++)
 {
-if(text.find(fir[b])>-1) text=text.replace(fir[b],sec[b]);
+if(stringcontains(text,fir[b],1)>-1) text=text.replace(fir[b],sec[b],true);
 }
 return text;
 }
