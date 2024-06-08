@@ -187,6 +187,7 @@ bool allowenter=true,allownumpadenter=true,allowrightenter=true;
 bool escapeable=true;
 string clicksound, edgesound, wrapsound, opensound, movesound;
 int ttkey=KEY_TAB; //The key for repeating title, default is tab key, set to -1 on no key.
+bool multinav=true;
 //Private variables and therefore they should not be modified.
 key_hold ckeyup(KEY_UP,300,50);
 key_hold ckeydown(KEY_DOWN,300,60);
@@ -245,7 +246,7 @@ bool get_running() property
 {
 return this.m_running;
 }
-void create(string ctitle,bool saydialog=false,bool allowoverrun=false, bool tts=true)
+void create(string ctitle,bool saydialog=false,bool allowoverrun=false, bool is_tts=true)
 {
 if(this.m_running && !allowoverrun)
 {
@@ -255,7 +256,7 @@ return;
 string d="";
 this.say_dialog=saydialog;
 this.title=ctitle;
-this.title_tts=tts;
+this.title_tts=is_tts;
 this.m_running=true;
 this.speak_title();
 this.clicked = "";
@@ -314,7 +315,7 @@ speak(this.items[f].name+"  "+this.items[f].listtype,false);
 double cc=this.items[f].listper;
 while(true)
 {
-wait(5);
+wait(0.5);
 if(navtime.elapsed>1000 and multichar!="")
 multichar="";
 string c=get_characters().lower();
@@ -612,6 +613,8 @@ if(this.tell)
 if(this.items.length()>0 && !is_over_value(items.length(),this.line)) this.items[this.line].on_focus();
 this.tell=false;
 }
+if(this.multinav)
+{
 if(navtime.elapsed>1000 and multichar!="")
 multichar="";
 string c=get_characters().lower();
@@ -667,6 +670,7 @@ this.line=i;
 if(!is_over_value(items.length(),this.line)) this.items[this.line].on_focus();
 found=true;
 break;
+}
 }
 }
 }

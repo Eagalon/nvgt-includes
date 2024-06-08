@@ -333,12 +333,11 @@ bool is_over_value(double len,double currentc=0)
 if(currentc<0 or currentc>len-1) return true;
 else return false;
 }
-/*string get_time_in_format(string format="<dd>/<mm>/<y>, <hh>:<nn>:<ss> <TT>",double a=DATE_YEAR,double b=DATE_MONTH,double c=DATE_DAY,double d=TIME_HOUR,double e=TIME_MINUTE,double f=TIME_SECOND)
+string get_time_in_format(string format="<dd>/<mm>/<y>, <hh>:<nn>:<ss> <TT>",double a=DATE_YEAR,double b=DATE_MONTH,double c=DATE_DAY,double d=TIME_HOUR,double e=TIME_MINUTE,double f=TIME_SECOND)
 {
 string result=format;
 datetime cl;
-cl.setDate(a,b,c);
-cl.setTime(d,e,f);
+cl.set(a,b,c,d,e,f);
 string date, month, year, hour12, hour12x0, hour24, minute, second, daytime_lc, daytime;
 date=c;
 if(c<10)
@@ -351,7 +350,7 @@ if(b<10)
 month="0"+month;
 }
 year=""+a;
-year=string_trim_left(year, 2);
+year=string_trimleft(year, 2);
 hour24=""+d;
 if(d<10)
 {
@@ -411,10 +410,10 @@ result=result.replace("<d>", ""+c+"");
 result=result.replace("<D>", ""+c+"");
 result=result.replace("<dd>", date);
 result=result.replace("<DD>", date);
-result=result.replace("<w>", ""+cl.weekday);
-result=result.replace("<W>", cl.weekday_name);
+//result=result.replace("<w>", ""+cl.weekday);
+//result=result.replace("<W>", cl.weekday_name);
 result=result.replace("<m>", ""+b);
-result=result.replace("<M>", cl.month_name);
+result=result.replace("<M>", convert_month_name(cl.month));
 result=result.replace("<mm>", month);
 result=result.replace("<y>", ""+a);
 result=result.replace("<Y>", year);
@@ -434,7 +433,7 @@ result=result.replace("<tt>", daytime_lc);
 result=result.replace("<TT>", daytime);
 }
 return result;
-}*/
+}
 bool toggle(bool b)
 {
 return b?false:true;

@@ -13,7 +13,7 @@ void main()
 show_window("menu");
 c.add_audio("sounds/sniper.ogg","sniper");
 c.add_audio("sounds/rifle.ogg","rifle");
-c.create("sounds/title.ogg", tts:false);
+c.create("sounds/title.ogg", is_tts:false);
 while(c.running)
 {
 wait(5);

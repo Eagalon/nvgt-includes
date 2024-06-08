@@ -32,7 +32,7 @@ this.langdata="";
 if(l!=this.base_lang)
 {
 file f;
-f.open(this.lfolder+"/"+l+""+this.lex+"","r");
+f.open(this.lfolder+"/"+l+""+this.lex+"","rb");
 string ldd=f.read();
 f.close();
 this.langdata=ldd;
@@ -74,7 +74,7 @@ string[] lines;
 if(this.m_langname!=l)
 {
 file f;
-f.open(this.lfolder+"/"+l+""+this.lex+"","r");
+f.open(this.lfolder+"/"+l+""+this.lex+"","rb");
 lines=f.read().split("\r\n");
 f.close();
 }
@@ -103,7 +103,7 @@ string[] lines;
 if(this.m_langname!=l)
 {
 file f;
-f.open(this.lfolder+"/"+l+""+this.lex+"","r");
+f.open(this.lfolder+"/"+l+""+this.lex+"","rb");
 lines=f.read().split("\r\n");
 f.close();
 }

@@ -14,21 +14,26 @@ fn=filename;
 key=enckey;
 }
 //The function to load the saved data into the dictionary.
-void load()
+bool load()
 {
 file f;
 //fn is our previously declared filename string, so use that.
 bool suc=f.open(fn,"rb");
-if(suc) d=loaddict(f.read());
+if(!suc) return false;
+d=loaddict(f.read());
 //Close the file
 f.close();
+return true;
 }
 //Function to save the data into the file.
-void save()
+bool save()
 {
+if(this.d.get_keys().length()<1) return false;
 file f;
 f.open(fn,"wb");
 f.write(savedict(d));
+f.close();
+return true;
 }
 //Function to add a value.
 void add(string name, any@ val)

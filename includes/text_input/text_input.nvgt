@@ -5,7 +5,7 @@
 class text_input
 {
 sound capital;
-private string[] entry;
+private string entry;
 private string title;
 private int cursor=0;
 bool passworded=false;
@@ -30,7 +30,7 @@ reset();
 void reset()
 {
 this.cursor=0;
-this.entry.resize(0);
+this.entry="";
 this.title="";
 this.passworded=false;
 this.mask="";
@@ -142,7 +142,7 @@ speak("Blank");
 return;
 }
 else{
-string char=""+entry[position];
+string char=entry[position];
 if(passworded) speak(""+mask,true);
 else{
 if(char.is_upper())
@@ -161,7 +161,8 @@ else if(char==" ")
 {
 speak("Space");
 }
-else speak(symbol_to_word(char),true);
+//else speak(symbol_to_word(char),true);
+else speak(char,true);
 }
 }
 }
@@ -205,7 +206,8 @@ speak("Space");
 else speak(symbol_to_word(char),true);
 }
 }
-entry.insert_at(cursor,char);
+string newchar=entry.substr(0,cursor)+char+entry.substr(cursor);
+entry=newchar;
 }
 return true;
 }
@@ -219,18 +221,16 @@ textlength=txtlength;
 speak(ttl,true);
 if(default_text!="")
 {
-for(uint i=0; i<default_text.length(); i++)
-{
-entry.insert_last(""+default_text[i]);
-}
+entry=default_text.substr(0,textlength-1);
 cursor=entry.length();
 }
 while(true)
 {
-wait(5);
+wait(0.5);
 string c=get_characters();
-if(c!="" and c.length()==1){ 
-if(input_character(c)) cursor++;
+if(c!="")
+{
+if(input_character(c)) cursor+=c.length();
 }
 if(key_pressed(KEY_TAB))speak(title,true);
 if(controldown())
@@ -256,10 +256,9 @@ if(this.nochars.length()>0 && !this.is_allowed_char(pastetext))
 if(this.nochardes!="") speak(this.nochardes);
 continue;
 }
-for(uint i=0; i<pastetext.length(); i++){ 
-entry.insert_at(cursor,""+pastetext[i]);
-cursor++;
-}
+string newpastetext=entry.substr(0,cursor)+pastetext+entry.substr(cursor+1);
+entry=newpastetext;
+cursor+=pastetext.length();
 speak("Pasted from clipboard.");
 }
 if(key_pressed(KEY_C))
@@ -269,8 +268,7 @@ if(!this.copyable)
 speak("this input does not allow copying.");
 continue;
 }
-string fulltext;
-for(uint i=0; i<entry.length(); i++) fulltext+=""+entry[i];
+string fulltext=entry;
 if(fulltext.length()==0) continue;
 clipboard_set_text(fulltext);
 speak("Copied to clipboard.");
@@ -279,8 +277,7 @@ speak("Copied to clipboard.");
 if(key_pressed(KEY_RETURN))
 {
 if(entry.length()==0) continue;
-string fulltext;
-for(uint i=0; i<entry.length(); i++) fulltext+=""+entry[i];
+string fulltext=entry;
 return fulltext;
 }
 if(key_pressed(KEY_HOME))
@@ -326,20 +323,22 @@ for(uint i=0; i<entry.length(); i++) fulltext+=""+entry[i];
 if(fulltext.length()==0) continue;
 speak(fulltext,true);
 }
-if(rarrow.pressing and cursor<entry.length())
+if(rarrow.pressing)
 {
 if(controldown()) nextword();
 else{
-cursor++;
+cursor=utf8next(entry,cursor);
+if(cursor>entry.length()) cursor=entry.length();
 speak_character_at(cursor);
 }
 }
 
-if(larrow.pressing and cursor>0)
+if(larrow.pressing)
 {
 if(controldown()) prevword();
 else{ 
-cursor--;
+cursor=utf8prev(entry,cursor);
+if(cursor<0) cursor=0;
 speak_character_at(cursor);
 }
 }
@@ -348,12 +347,12 @@ if((back.pressing or back2.pressing) and cursor>0)
 if(controldown() and entry.length()>0)
 {
 speak("Cleared text.");
-entry.resize(0);
+entry="";
 cursor=0;
 }
 else{
 speak_character_at(cursor-1);
-entry.remove_at(cursor-1);
+entry.erase(cursor-1,1);
 cursor--;
 }
 }
