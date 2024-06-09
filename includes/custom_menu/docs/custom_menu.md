@@ -15,24 +15,25 @@ The custom_menu object requires the following libraries:
 1. key_hold.nvgt: The keyhold object is used to press keys repeatedly, like walking.
 
 
-
 Without the above libraries, the compiler will issue an error, indicating which files are required.
 
 ## Example
 
 ```
 // Make a menu.
-#include "custom_menu.ngt"
+#include "custom_menu.nvgt"
 void main()
 {
-show_game_window("menu test");
+show_window("menu test");
 custom_menu c;
 c.add("item1", "i1");
 c.add("item2", "i2");
 c.add("go back", "back");
-while (c.is_running())
+c.create("menu");
+while (c.running)
 {
-update_game_window();
+wait(5);
+c.monitor();
 }
 }
 ```

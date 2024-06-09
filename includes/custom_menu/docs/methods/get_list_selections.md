@@ -1,17 +1,17 @@
-# custom_menu
+# get_list_selections
 
 custom_menu object
 
 
 This method returns an array with the list of selected list items in a given list.
 
-# int[] get_list_selections(string ref)
+`uint[] get_list_selections(string ref);`
 
 ## Parameters
 
-Variable| Description
----|---
-ref | The reference of the menu item to the list.
+| Variable| Description |
+|---|---|
+| ref | The reference of the menu item to the list. |
 
 ## Return Value
 

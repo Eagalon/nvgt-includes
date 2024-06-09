@@ -1,17 +1,17 @@
-# custom_menu
+# get_list_position
 
 custom_menu object
 
 
 This method returns the position of a given list.
 
-# int get_list_position(string ref)
+`int get_list_position(string ref);`
 
 ## Parameters
 
-Variable| Description
----|---
-ref | The reference of the menu item to the list.
+| Variable| Description |
+|---|---|
+| ref | The reference of the menu item to the list. |
 
 ## Return Value
 

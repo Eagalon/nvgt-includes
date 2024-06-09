@@ -1,6 +1,7 @@
 ﻿sound dlgaudio;
-int dlgplay(string dlgsound, bool dlgfade=false, float fvol=-50, int fadespeed=30)
+int dlgplay(string dlgsound, bool dlgfade=false, float fvol=-50, int fadespeed=10)
 {
+dlgaudio.close();
 dlgaudio.load(dlgsound);
 dlgaudio.play();
 int result = 1;
@@ -14,6 +15,7 @@ result = 0;
 if (dlgfade==true)
 {
 fadedlgplay(dlgaudio, fvol, fadespeed);
+alert("ok","yep");
 dlgaudio.close();
 break;
 }
@@ -25,6 +27,7 @@ if(key_pressed(KEY_RETURN))
 if (dlgfade==true)
 {
 fadedlgplay(dlgaudio, fvol, fadespeed);
+alert("ok","yep");
 dlgaudio.close();
 break;
 }
@@ -34,24 +37,25 @@ break;
 }
 return result;
 }
-void fadedlgplay(sound@ handle, double final_volume=-50, double delay=25)
+void fadedlgplay(sound@ fhandle, double final_volume=-50, double fdelay=25)
 {
-if(@handle==null || handle is null) return;
-if(!handle.active) return;
-if (handle.volume == final_volume)
+if(@fhandle==null || fhandle is null) return;
+if(!fhandle.active) return;
+if (fhandle.volume == final_volume)
 {
 return;
 }
-while (handle.volume != final_volume)
+while (fhandle.volume!=final_volume && fhandle.playing)
 {
-if (handle.volume > final_volume)
+if (fhandle.volume > final_volume)
 {
-handle.volume-=1;
+fhandle.set_volume(fhandle.volume-1);
 }
-else if (handle.volume < final_volume)
+else if (fhandle.volume < final_volume)
 {
-handle.volume+=1;
+fhandle.set_volume(fhandle.volume+1);
 }
-wait (delay);
+if(fhandle.volume==final_volume) break;
+wait (fdelay);
 }
 }

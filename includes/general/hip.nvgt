@@ -171,56 +171,58 @@ return round(size,round_to)+" TB";
 }
 string convert_month_name(double value)
 {
-if(value==1) return"January";
-else if(value==2) return"Febuary";
-else if(value==3) return"March";
-else if(value==4) return"April";
-else if(value==5) return"May";
-else if(value==6) return"June";
-else if(value==7) return"July";
-else if(value==8) return"August";
-else if(value==9) return"September";
-else if(value==10) return"October";
-else if(value==11) return"November";
-else if(value==12) return"December";
+if(value==1) return"january";
+else if(value==2) return"febuary";
+else if(value==3) return"march";
+else if(value==4) return"april";
+else if(value==5) return"may";
+else if(value==6) return"june";
+else if(value==7) return"july";
+else if(value==8) return"august";
+else if(value==9) return"september";
+else if(value==10) return"october";
+else if(value==11) return"november";
+else if(value==12) return"december";
 else return"";
 }
 double convert_month_number(string monthname)
 {
-if(monthname=="January") return 1;
-else if(monthname=="Febuary") return 2;
-else if(monthname=="March") return 3;
-else if(monthname=="April") return 4;
-else if(monthname=="May") return 5;
-else if(monthname=="June") return 6;
-else if(monthname=="July") return 7;
-else if(monthname=="August") return 8;
-else if(monthname=="September") return 9;
-else if(monthname=="October") return 10;
-else if(monthname=="November") return 11;
-else if(monthname=="December") return 12;
+monthname=monthname.lower();
+if(monthname=="january") return 1;
+else if(monthname=="febuary") return 2;
+else if(monthname=="march") return 3;
+else if(monthname=="april") return 4;
+else if(monthname=="may") return 5;
+else if(monthname=="june") return 6;
+else if(monthname=="july") return 7;
+else if(monthname=="august") return 8;
+else if(monthname=="september") return 9;
+else if(monthname=="october") return 10;
+else if(monthname=="november") return 11;
+else if(monthname=="december") return 12;
 else return -1;
 }
 string convert_weekday_name(double value)
 {
-if(value==1) return"Sunday";
-else if(value==2) return"Monday";
-else if(value==3) return"Tuesday";
-else if(value==4) return"Wednesday";
-else if(value==5) return"Thursday";
-else if(value==6) return"Friday";
-else if(value==7) return"Saturday";
+if(value==1) return"sunday";
+else if(value==2) return"monday";
+else if(value==3) return"tuesday";
+else if(value==4) return"wednesday";
+else if(value==5) return"thursday";
+else if(value==6) return"friday";
+else if(value==7) return"saturday";
 else return"";
 }
 double convert_weekday_number(string weekdayname)
 {
-if(weekdayname=="Sunday") return 1;
-else if(weekdayname=="Monday") return 2;
-else if(weekdayname=="Tuesday") return 3;
-else if(weekdayname=="Wednesday") return 4;
-else if(weekdayname=="Thursday") return 5;
-else if(weekdayname=="Friday") return 6;
-else if(weekdayname=="Saturday") return 7;
+weekdayname=weekdayname.lower();
+if(weekdayname=="sunday") return 1;
+else if(weekdayname=="monday") return 2;
+else if(weekdayname=="tuesday") return 3;
+else if(weekdayname=="wednesday") return 4;
+else if(weekdayname=="thursday") return 5;
+else if(weekdayname=="friday") return 6;
+else if(weekdayname=="saturday") return 7;
 else return -1;
 }
 /*
@@ -410,8 +412,8 @@ result=result.replace("<d>", ""+c+"");
 result=result.replace("<D>", ""+c+"");
 result=result.replace("<dd>", date);
 result=result.replace("<DD>", date);
-//result=result.replace("<w>", ""+cl.weekday);
-//result=result.replace("<W>", cl.weekday_name);
+result=result.replace("<w>", ""+(cl.weekday+1));
+result=result.replace("<W>", convert_weekday_name(cl.weekday+1));
 result=result.replace("<m>", ""+b);
 result=result.replace("<M>", convert_month_name(cl.month));
 result=result.replace("<mm>", month);
@@ -624,7 +626,8 @@ gender_s=1,
 gender_o,
 gender_pd,
 gender_pp,
-gender_r
+gender_r,
+gender_n
 }
 string get_gender(string gend, int n = 0)
 {
@@ -637,6 +640,7 @@ else if (n == gender_o) return "him";
 else if (n == gender_pd) return "his";
 else if (n == gender_pp) return "his";
 else if (n == gender_r) return "himself";
+else if(n==gender_n) return"boy";
 else return "";
 }
 else if (gen == "female")
@@ -646,6 +650,7 @@ else if (n == gender_o) return "her";
 else if (n == gender_pd) return "her";
 else if (n == gender_pp) return "hers";
 else if (n == gender_r) return "herself";
+else if(n==gender_n) return"girl";
 else return "";
 }
 else if (n == gender_s) return "they";

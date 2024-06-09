@@ -1,17 +1,17 @@
-# custom_menu
+# focus
 
 custom_menu object
 
 
-this method sets the focus of the menu.
+This method sets the focus of the menu.
 
-# bool focus(value)
+`bool focus(value);`
 
-## parameters
+## Parameters
 
-variable| description
----|---
-value | the reference name of the item, or the position.
+| Variable| Description |
+|---|---|
+| value | the reference name of the item, or the position. |
 
 ## return value
 
@@ -19,8 +19,4 @@ true on success, false on failure.
 
 ## remarks
 
-this method accepts both position and reference name. this means you can use, either the name of the reference of the item or the position.
-
-## example
-
-none
+This method accepts both position and reference name. This means you can use, either the name of the reference of the item or the position.

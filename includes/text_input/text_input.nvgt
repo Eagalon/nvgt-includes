@@ -256,7 +256,7 @@ if(this.nochars.length()>0 && !this.is_allowed_char(pastetext))
 if(this.nochardes!="") speak(this.nochardes);
 continue;
 }
-string newpastetext=entry.substr(0,cursor)+pastetext+entry.substr(cursor+1);
+string newpastetext=entry.substr(0,cursor)+pastetext+entry.substr(cursor);
 entry=newpastetext;
 cursor+=pastetext.length();
 speak("Pasted from clipboard.");
@@ -276,7 +276,6 @@ speak("Copied to clipboard.");
 }
 if(key_pressed(KEY_RETURN))
 {
-if(entry.length()==0) continue;
 string fulltext=entry;
 return fulltext;
 }
@@ -352,7 +351,7 @@ cursor=0;
 }
 else{
 speak_character_at(cursor-1);
-entry.erase(cursor-1,1);
+entry=entry.substr(0,cursor-1)+entry.substr(cursor);
 cursor--;
 }
 }

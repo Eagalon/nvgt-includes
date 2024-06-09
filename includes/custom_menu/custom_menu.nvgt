@@ -746,6 +746,7 @@ if(key_pressed(KEY_SPACE) and !is_over_value(this.items.length(), this.line) && 
 this.items[this.line].checked = (this.items[this.line].checked?false:true);
 speak((this.items[this.line].checked?"checked":"not checked"));
 }
+else if(keyboard_modifiers & KEYMOD_CTRL>0 && key_pressed(KEY_G)) this.goline(this.line+1);
 else if(!is_over_value(this.items.length(), this.line) && this.items[this.line].type == cme_type_slider)
 {
 if((!this.sidescrolling && !key_pressed(KEY_LEFT) && ckeyleft.pressing ) or (this.sidescrolling && !key_pressed(KEY_UP) && ckeyup.pressing))
@@ -833,9 +834,9 @@ bool is_running()
 {
 return this.m_running;
 }
-int[] get_list_selections(string ref)
+uint[] get_list_selections(string ref)
 {
-int[] e;
+uint[] e;
 int f= this.get_menu_item(ref);
 if(f<0) return e;
 if(this.items[f].type!=cme_type_list) return e;
@@ -896,6 +897,59 @@ return false;
 this.line=f;
 return true;
 }
+void goline(double ln=1)
+{
+double lf=ln-1;
+audio_form lineform;
+lineform.create_window("go to line",false);
+int a=lineform.create_input_box("line number. Maximum lines is "+this.item_length,ln,"",0,false,false,false);
+int b=lineform.create_button("ok",true,false);
+int c=lineform.create_button("cancel",false,true);
+lineform.focus(a);
+while(true)
+{
+wait(0.5);
+lineform.monitor();
+string lt=lineform.get_text(a);
+if(lineform.is_pressed(b))
+{
+double l=parse_float(lt);
+if(!lt.is_digits())
+{
+lineform.focus(a);
+speak("enter number only");
+}
+else if(l<1)
+{
+lineform.focus(a);
+speak("minimum number out of range.");
+}
+else if(this.items.length()<l)
+{
+lineform.focus(a);
+speak("out of range.");
+}
+else if(this.focus(l-1))
+{
+lineform.reset();
+if(!is_over_value(this.item_length,this.line)) this.items[this.line].on_focus();
+break;
+}
+else
+{
+speak("error occured");
+lineform.focus(a);
+}
+}//if.b.
+else if(lineform.is_pressed(c))
+{
+lineform.reset();
+speak("canceled");
+break;
+}
+}//if.while
+return;
+}//end.goline
 int get_error() property
 {
 return this.cm_error;

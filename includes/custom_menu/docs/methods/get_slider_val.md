@@ -1,17 +1,17 @@
-# custom_menu
+# get_slider_val
 
 custom_menu object
 
 
 This method returns the value of a given slider.
 
-# double get_slider_val(string ref)
+`double get_slider_val(string ref);`
 
 ## Parameters
 
-Variable| Description
----|---
-ref | The reference of the menu item to the slider.
+| Variable| Description |
+|---|---|
+| ref | The reference of the menu item to the slider. |
 
 ## Return Value
 

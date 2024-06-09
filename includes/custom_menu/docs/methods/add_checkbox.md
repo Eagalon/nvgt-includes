@@ -13,7 +13,7 @@ This adds the checkbox item to the menu.
 |---|---|
 | name | The specified item. |
 | ref | The reference name for the item. |
-| checked | an optional parameter, to set the status of the checkbox. default is false, meaning the checkbox will not be checked. |
+| checked | An optional parameter, to set the status of the checkbox. default is false, meaning the checkbox will not be checked. |
 
 ## Return Value
 
