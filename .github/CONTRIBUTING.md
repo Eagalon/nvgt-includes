@@ -22,9 +22,9 @@ void test()
 {
 	alert("hello","testing");
 }
+```
 
 ### Code blocks
-
 If possible, please use new line for each code block.
 
 #### Good
