@@ -1,0 +1,7 @@
+#include"email_checker.nvgt"
+void main()
+{
+string text = input_box("email checker", "enter a text to check if this email or not");
+if(is_email(text)) alert("success", "The text entered is an email");
+else alert("error", "The text you entered is not an email");
+}
