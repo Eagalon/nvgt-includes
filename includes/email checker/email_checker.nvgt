@@ -1,0 +1,9 @@
+//check email, a small script that you can use to check giving test is an email or not
+//created by abdallah hayder
+//You are free to use it in your game
+bool is_email(string text)
+{
+regexp re("^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$");
+if (re.match(text)) 		return true;
+return false;
+}
