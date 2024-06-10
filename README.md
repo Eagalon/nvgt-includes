@@ -14,6 +14,12 @@ Issue is a place where you can submit issues, feature requests, and bug reports.
 
 [Join the issues!](https://github.com/harrymkt/nvgt-includes/issues)
 
+## Telegram
+
+You can join on Telegram to discuss things that aren't enough to ask in discussion form or issue page.
+
+[Join On Telegram](https://t.me/nvgtincludes)
+
 ## Contributing
 
 You can help improve the scripts by contributing. Not enough github / engine knowledge to contribute? Don't worry. You can improve the scripts by starting discussions and issues to tell other contributors what need to be fixed or added. Every contribution counts and helps.
