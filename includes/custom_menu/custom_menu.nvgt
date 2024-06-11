@@ -540,6 +540,28 @@ return -1;
 }
 return this.items[f].sd_index;
 }
+bool set_slider_val(string ref, double val, double minimum, double maximum)
+{
+if(ref == "") return false;
+int f= this.get_menu_item(ref);
+if(f<0) return false;
+if(this.items[f].type != cme_type_slider)
+{
+this.cm_error=cme_invalid_type;
+return false;
+}
+this.items[f].sd_index=val;
+this.items[f].sd_min=minimum;
+this.items[f].sd_max=maximum;
+return this.items[f].sd_index==val && this.items[f].sd_min==minimum && this.items[f].sd_max==maximum;
+}
+bool set_slider_val(string ref, double val)
+{
+if(ref == "") return false;
+int f= this.get_menu_item(ref);
+if(f<0) return false;
+return this.set_slider_val(ref, val, this.items[f].sd_min, this.items[f].sd_max);
+}
 void play_clicksound()
 {
 if(this.clicksound!="" && !this.sndclick.active) this.sndclick.load(this.clicksound);
@@ -742,10 +764,13 @@ this.play_edgesound();
 else if(this.line<items.length()-1) this.line++;
 if(!is_over_value(items.length(),this.line)) this.items[this.line].on_focus();
 }
-if(key_pressed(KEY_SPACE) and !is_over_value(this.items.length(), this.line) && this.items[this.line].type == cme_type_checkbox)
+if(!is_over_value(this.items.length(), this.line) && this.items[this.line].type == cme_type_checkbox)
+{
+if(key_pressed(KEY_SPACE))
 {
 this.items[this.line].checked = (this.items[this.line].checked?false:true);
 speak((this.items[this.line].checked?"checked":"not checked"));
+}
 }
 else if(keyboard_modifiers & KEYMOD_CTRL>0 && key_pressed(KEY_G)) this.goline(this.line+1);
 else if(!is_over_value(this.items.length(), this.line) && this.items[this.line].type == cme_type_slider)
