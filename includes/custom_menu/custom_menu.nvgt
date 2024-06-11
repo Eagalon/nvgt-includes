@@ -261,6 +261,7 @@ this.m_running=true;
 this.speak_title();
 this.clicked = "";
 this.play_opensound();
+get_characters();
 return;
 }
 private void speak_title()
