@@ -1,0 +1,81 @@
+#include"size.nvgt"
+#include"speech.nvgt"
+#pragma plugin nvgt_curl//If this is present in the main nvgt file of your project, delete this line
+class downloader
+{
+bool silent=false;
+string url, filename, message;
+int round_to=2;
+string finished, canceled;
+downloader()
+{
+this.reset();
+}
+downloader(string url, string filename, bool silent=false)
+{
+this.reset();
+this.url=url;
+this.silent=silent;
+this.filename=filename;
+}
+downloader(string url, string filename, bool silent, string msg)
+{
+this.reset();
+this.url=url;
+this.silent=silent;
+this.message=msg;
+this.filename=filename;
+}
+void reset()
+{
+this.url="";
+this.silent=false;
+this.filename="";
+this.message="Downloading. Press Space for percentage, 1 2 and 3 keys for detailed progress, or escape to cancel";
+this.round_to=2;
+this.finished="finished";
+this.canceled="canceled";
+}
+string start()
+{
+internet_request r(this.url,this.filename);
+if(!this.silent) speak(message);
+string status;
+while(r.in_progress)
+{
+wait(5);
+if (key_pressed(KEY_ESCAPE))
+{
+status=this.canceled;
+speak(status);
+wait(600);
+return status;
+}
+else if (key_pressed(KEY_1))
+{
+string size=size_to_string(r.download_size, this.round_to)+" ("+round(r.download_size/1024, this.round_to)+" KB)";
+speak("File size: "+size);
+}
+else if (key_pressed(KEY_2))
+{
+string size=size_to_string(r.bytes_downloaded, this.round_to)+" ("+round(r.bytes_downloaded/1024, this.round_to)+" KB)";
+speak("Total downloaded: "+size);
+}
+else if (key_pressed(KEY_3))
+{
+string size=size_to_string(r.download_size-r.bytes_downloaded, this.round_to)+" ("+(round(r.download_size/1024, this.round_to)-round(r.bytes_downloaded/1024, this.round_to))+" KB)";
+speak("Total remaining: "+size);
+}
+else if (key_pressed(KEY_SPACE))
+{
+speak(round(r.download_percent,this.round_to)+" percent");
+}
+else if(r.complete==true)
+{
+status=this.finished;
+}
+//prog.play();
+}
+return status;
+}
+}//End of class

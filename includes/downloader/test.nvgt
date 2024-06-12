@@ -1,0 +1,19 @@
+#include"downloader.nvgt"
+void main()
+{
+string u=clipboard_get_text();
+if(!u.empty())
+{
+int q=question("URL","There is an URL on your clipboard. Do you want to use it instead?");
+if(q!=1) u=input_box("URL","Download URL");
+}
+if(u=="") exit();
+string uf=input_box("Disk file","Disk file");
+if(uf=="") exit();
+show_window("test");
+downloader d(u,uf);
+d.finished="Download success";
+string st=d.start();
+alert("ok",st);
+exit();
+}
