@@ -1,7 +1,7 @@
 #include"dlgplayer.nvgt"
 void main() {
 show_window("dlg player test");
-int action = dlgplay("C:\\Windows\\Media\\Ring08.wav", true,-50,50);
+int action = dlgplay("C:\\Windows\\Media\\Ring08.wav", true,-50,3000);
 alert("result", (action == 1?"You pressed return":"You pressed escape"));
 exit();
 }
