@@ -42,33 +42,37 @@ else
 final=random(minimum,maximum);
 return final;
 }
-/*string get_modified_time(double y,double m,double d,double h,double mn,double s)
+string get_modified_time(double y,double m,double d,double h,double mn,double s)
 {
 if(y<1 and m<1 and d<1 and mn<1 and s<1) return"just now";
 string final;
 datetime now;
 datetime past;
 past.set(y,m,d,h,mn,s);
-double year=past.diff_years(now);
+timespan diff=past.timestamp.elapsed-now.timestamp.elapsed;
+/*
+currently years and months aren't working.
+double year=diff.years;
 year=round(year,0);
-double month=past.diff_months(now);
-double day=past.diff_days(now);
-double hour=past.diff_hours(now);
-double minute=past.diff_minutes(now);
-double second=past.diff_seconds(now);
+double month=diff.months;
+month=round(month,0);
+*/
+double day=diff.days;
+double hour=diff.hours;
+double minute=diff.minutes;
+double second=diff.seconds;
 second=round(second,0);
 minute=round(minute,0);
 hour=round(hour,0);
-month=round(month,0);
 day=round(day,0);
-if(year>0) final=year+" year"+(year>1?"s":"")+" ago";
-else if(month>0) final=month+" month"+(month>1?"s":"")+" ago";
-else if(day>0) final=day+" day"+(day>1?"s":"")+" ago";
+//if(year>0) final=year+" year"+(year>1?"s":"")+" ago";
+//else if(month>0) final=month+" month"+(month>1?"s":"")+" ago";
+if(day>0) final=day+" day"+(day>1?"s":"")+" ago";
 else if(hour>0) final=hour+" hour"+(hour>1?"s":"")+" ago";
 else if(minute>0) final=minute+" minute"+(minute>1?"s":"")+" ago";
 else if(second>0) final=second+" second"+(second>1?"s":"")+" ago";
 return final;
-}*/
+}
 class lister
 {
 //list to string convertion.
