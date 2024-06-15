@@ -46,8 +46,8 @@ string get_modified_time(double y,double m,double d,double h,double mn,double s)
 {
 if(y<1 and m<1 and d<1 and mn<1 and s<1) return"just now";
 string final;
-datetime now;
-datetime past;
+calendar now;
+calendar past;
 past.set(y,m,d,h,mn,s);
 timespan diff=past.timestamp.elapsed-now.timestamp.elapsed;
 /*
@@ -72,6 +72,15 @@ else if(hour>0) final=hour+" hour"+(hour>1?"s":"")+" ago";
 else if(minute>0) final=minute+" minute"+(minute>1?"s":"")+" ago";
 else if(second>0) final=second+" second"+(second>1?"s":"")+" ago";
 return final;
+}
+string get_modified_time(any@ what)
+{
+if(@what==null) return"";
+calendar d;
+datetime e;
+if(what.retrieve(d)) return get_modified_time(d.year, d.month, d.day, d.hour, d.minute, d.second);
+else if(what.retrieve(e)) return get_modified_time(e.year, e.month, e.day, e.hour, e.minute, e.second);
+else return"";
 }
 class lister
 {
@@ -339,10 +348,10 @@ bool is_over_value(double len,double currentc=0)
 if(currentc<0 or currentc>len-1) return true;
 else return false;
 }
-string get_time_in_format(string format="<dd>/<mm>/<y>, <hh>:<nn>:<ss> <TT>",double a=DATE_YEAR,double b=DATE_MONTH,double c=DATE_DAY,double d=TIME_HOUR,double e=TIME_MINUTE,double f=TIME_SECOND)
+string get_time_in_format(string format="<dd>/<mm>/<y>, <hh>:<nn>:<ss> <TT>",double a=calendar().year,double b=calendar().month,double c=calendar().day,double d=time_hour,double e=time_minute,double f=time_second)
 {
 string result=format;
-datetime cl;
+calendar cl;
 cl.set(a,b,c,d,e,f);
 string date, month, year, hour12, hour12x0, hour24, minute, second, daytime_lc, daytime;
 date=c;
@@ -439,6 +448,16 @@ result=result.replace("<tt>", daytime_lc);
 result=result.replace("<TT>", daytime);
 }
 return result;
+}
+string get_time_in_format(string format, any@ what)
+{
+if(@what==null) return"";
+calendar d;
+datetime e;
+if(format=="") format="<dd>/<mm>/<y>, <hh>:<nn>:<ss> <TT>";
+if(what.retrieve(d)) return get_time_in_format(format, d.year, d.month, d.day, d.hour, d.minute, d.second);
+else if(what.retrieve(e)) return get_time_in_format(format, e.year, e.month, e.day, e.hour, e.minute, e.second);
+else return"";
 }
 bool toggle(bool b)
 {
