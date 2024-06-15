@@ -348,7 +348,7 @@ bool is_over_value(double len,double currentc=0)
 if(currentc<0 or currentc>len-1) return true;
 else return false;
 }
-string get_time_in_format(string format="<dd>/<mm>/<y>, <hh>:<nn>:<ss> <TT>",double a=calendar().year,double b=calendar().month,double c=calendar().day,double d=time_hour,double e=time_minute,double f=time_second)
+string get_time_in_format(string format="<dd>/<mm>/<y>, <hh>:<nn>:<ss> <TT>",double a=calendar().year,double b=calendar().month,double c=calendar().day,double d=calendar().hour,double e=calendar().minute,double f=calendar().second)
 {
 string result=format;
 calendar cl;
