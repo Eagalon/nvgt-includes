@@ -3,13 +3,13 @@
 The following constants can be used to specify the formats.
 * `<d>` : Day, 1 - 31
 * `<dd>` : Day, 01 - 31
-* `<w>` : Weekday, 1 (Monday) - 7 (Sunday)
-* `<W>` : The name of the week, Monday, Sunday
+* `<w>` : Weekday, 1 (Sunday) - 7 (Saturday)
+* `<W>` : The name of the week, Sunday, Saturday
 * `<m>` : Month, 1 - 12
 * `<M>` : Month name, 1=January
 * `<mm>` : Month, 01 - 12
-* `<Y>` : Year, 4 digits, 2020
-* `<Y>` : Year, last 2 digits, 20
+* `<Y>` : Year, 4 digits, 2024
+* `<Y>` : Year, last 2 digits, 24
 * `<h>` : Hour in 12 hour format, 1 - 12
 * `<hh>` : Hour in 12 hour format, 01 - 12
 * `<H>` : Hour, 24 hour format, 0 - 23
