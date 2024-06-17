@@ -4,6 +4,5 @@
 bool is_email(string text)
 {
 regexp re("^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$");
-if (re.match(text)) 		return true;
-return false;
+return re.match(text);
 }

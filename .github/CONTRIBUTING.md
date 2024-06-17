@@ -3,7 +3,7 @@ Thank you for the willingness to contribute!
 
 ## Guidelines
 
-Before discussing about how you could contribute, please the following guidelines to insure a safe environment, stability, and readability.
+Before discussing about how you could contribute, please mind the following guidelines to insure a safe environment, stability, and readability.
 
 ### Code Indentation
 If possible, please do not use indentation, since this language is not required to use it.
@@ -73,11 +73,9 @@ Your next step is to clone your forked repository into your local device so it i
 It is recommended to use Github Desktop if you are using from the PC.
 
 Copy the link of your forked repository that you did earlyer.
-
 ```
 https://<username>/nvgt-includes.git
 ```
-
 Replace `<username>` with your github username.
 
 Next, open your github desktop. Choose the option to clone the repository, and paste the link of your forked repository into the box and you're good to go.
@@ -95,7 +93,6 @@ Then, click on `create new pull request`. Next, write helpful description of wha
 
 ### Updates
 It is important to know that you should update your forked repository so that anything would be correct as it should be.
-
 To do that, go back to your forked repository in your browser.
 
 Next, click on `synk fork` submenu. at the bottom, click on `update branch` button. If you can't see the button, meaning you're up to date. It will also indicate with the message that is up to date or not.

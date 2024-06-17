@@ -1,7 +1,6 @@
 #include"hip.nvgt"
 #include"key_hold.nvgt"
 #include"speech.nvgt"
-#include"form.nvgt"
 timer navtime;
 /*
 Custom menu
@@ -101,7 +100,7 @@ this.sd_index=indexval;
 }
 void on_focus()
 {
-speak(this.name+"  slider "+this.sd_index,false);
+speak(this.name+"  slider "+this.sd_index);
 this.menu_parent.play_movesound();
 }
 }
@@ -114,7 +113,7 @@ this.checked = checked;
 }
 void on_focus()
 {
-speak(this.name+"  check box "+(this.checked?"checked":"not checked"),false);
+speak(this.name+"  check box "+(this.checked?"checked":"not checked"),false, false);
 this.menu_parent.play_movesound();
 }
 }
@@ -246,12 +245,12 @@ bool get_running() property
 {
 return this.m_running;
 }
-void create(string ctitle,bool saydialog=false,bool allowoverrun=false, bool is_tts=true)
+bool create(string ctitle,bool saydialog=false,bool allowoverrun=false, bool is_tts=true)
 {
 if(this.m_running && !allowoverrun)
 {
 this.cm_error=cme_alreadyactive;
-return;
+return false;
 }
 string d="";
 this.say_dialog=saydialog;
@@ -262,7 +261,7 @@ this.speak_title();
 this.clicked = "";
 this.play_opensound();
 get_characters();
-return;
+return true;
 }
 private void speak_title()
 {
@@ -291,11 +290,14 @@ return;
 }
 void set_music(string path) property
 {
-if(this.musical.active) this.musical.close();
+this.stop_music();
+if(path!="")
+{
 this.musical.load(path);
+}
 this.musical.volume=this.musicvol;
 this.musical.pitch=this.musicpitch;
-this.play_music();
+if(path!="") this.play_music();
 }
 void play_music()
 {
