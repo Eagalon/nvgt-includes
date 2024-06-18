@@ -930,7 +930,9 @@ void goline(double ln=1)
 double lf=ln-1;
 audio_form lineform;
 lineform.create_window("go to line",false);
+wait(250);
 int a=lineform.create_input_box("line number. Maximum lines is "+this.item_length,ln,"",0,false,false,false);
+lineform.select_text(a,0);
 int b=lineform.create_button("ok",true,false);
 int c=lineform.create_button("cancel",false,true);
 lineform.focus(a);

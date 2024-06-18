@@ -1,6 +1,6 @@
 #include"size.nvgt"
 #include"speech.nvgt"
-#pragma plugin nvgt_curl//If this is present in the main nvgt file of your project, delete this line
+#pragma plugin nvgt_curl
 class downloader
 {
 bool silent=false;
@@ -41,7 +41,7 @@ string start()
 internet_request r(this.url,this.filename);
 if(!this.silent) speak(message);
 string status;
-while(r.in_progress)
+while(!r.complete)
 {
 wait(5);
 if (key_pressed(KEY_ESCAPE))
